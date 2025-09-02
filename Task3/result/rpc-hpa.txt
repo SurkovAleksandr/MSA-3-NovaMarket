@@ -1,0 +1,11 @@
+kubectl top pods | grep scaler
+scaler-app-5c469c99c8-7hkhx                               1m           8Mi
+scaler-app-5c469c99c8-7xwwj                               1m           6Mi
+scaler-app-5c469c99c8-d8w4j                               1m           8Mi
+scaler-app-5c469c99c8-fv4gj                               1m           7Mi
+scaler-app-5c469c99c8-hjf8h                               1m           8Mi
+scaler-app-5c469c99c8-khdcx                               1m           9Mi
+scaler-app-5c469c99c8-mq27s                               1m           8Mi
+scaler-app-5c469c99c8-n4kn4                               1m           8Mi
+scaler-app-5c469c99c8-r6ktt                               1m           7Mi
+scaler-app-5c469c99c8-sjc6b                               1m           8Mi

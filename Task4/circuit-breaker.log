@@ -1,0 +1,29 @@
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ # Проверяем что сервис доступен
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ for i in {1..5}; do
+>   curl -s -o /dev/null -w "%{http_code} " localhost:8080/api/mobile/v1
+> done
+200 200 200 200 200 user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ # Останавливаем внешний сервис
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ kubectl delete deployment scaler-app
+deployment.apps "scaler-app" deleted
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ # Делаем запросы, чтобы получили 5 ошибок.
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ for i in {1..6}; do
+>   sleep 1
+>
+>   curl -s -o /dev/null -w "%{http_code} " localhost:8080/api/mobile/v1
+> done
+503 503 503 503 503 503 user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ # Поднимаем внешний сервис
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ helm upgrade --install scaler-app ../Task3/scaler-app
+Release "scaler-app" has been upgraded. Happy Helming!
+NAME: scaler-app
+LAST DEPLOYED: Tue Sep  2 11:54:37 2025
+NAMESPACE: default
+STATUS: deployed
+REVISION: 23
+TEST SUITE: None
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ # Проверяем что сервис доступен
+user:~/IdeaProjects/курсы/MSA-3-NovaMarket/Task4$ for i in {1..5}; do
+>   sleep 5
+>
+>   curl -s -o /dev/null -w "%{http_code} " localhost:8080/api/mobile/v1
+> done
+200 200 200 200 200

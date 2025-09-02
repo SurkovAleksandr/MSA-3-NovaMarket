@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "scaler-app.name" . }}
+  namespace: default
+  labels:
+    #release: prometheus
+    serviceMonitorSelector: prometheus # метки объекта, могут использоваться для выбора ServiceMonitor-ов самим Prometheus Operator
+spec:
+  endpoints:
+    - port: http  # Имя порта, на котором приложение экспортирует метрики
+      path: /metrics
+  namespaceSelector:
+    matchNames:
+      - default # указание namespace, из которого брать сервисы
+  selector:
+    matchLabels:
+      {{- include "scaler-app.selectorLabels" . | nindent 6 }}
+
+
+
+

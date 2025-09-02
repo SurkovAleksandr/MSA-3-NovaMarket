@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "scaler-app.name" . }}
+  labels:
+    {{- include "scaler-app.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort}}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "scaler-app.selectorLabels" . | nindent 4 }}
